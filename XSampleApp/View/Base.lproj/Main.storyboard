@@ -36,10 +36,28 @@
                                 <rect key="frame" x="0.0" y="103" width="393" height="715"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jO4-lf-yAN">
+                                <rect key="frame" x="333" y="758" width="50" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="6jX-cS-tOB"/>
+                                    <constraint firstAttribute="height" constant="50" id="7Eg-N9-vQX"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="＋">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="24"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="tappedAddButton:" destination="hRn-ow-MYX" eventType="touchUpInside" id="MU3-Tz-T4z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XaH-ju-qn4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="XaH-ju-qn4" firstAttribute="trailing" secondItem="jO4-lf-yAN" secondAttribute="trailing" constant="10" id="3tk-4k-0zh"/>
+                            <constraint firstItem="XaH-ju-qn4" firstAttribute="bottom" secondItem="jO4-lf-yAN" secondAttribute="bottom" constant="10" id="ESm-AA-KPR"/>
                             <constraint firstItem="llr-fy-W9k" firstAttribute="trailing" secondItem="XaH-ju-qn4" secondAttribute="trailing" id="Hag-4y-OAq"/>
                             <constraint firstItem="llr-fy-W9k" firstAttribute="top" secondItem="XaH-ju-qn4" secondAttribute="top" id="bTd-Uy-tnP"/>
                             <constraint firstItem="llr-fy-W9k" firstAttribute="leading" secondItem="XaH-ju-qn4" secondAttribute="leading" id="mF7-qp-kVu"/>
@@ -48,6 +66,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="P8X-N6-lL8"/>
                     <connections>
+                        <outlet property="addButton" destination="jO4-lf-yAN" id="iG8-u3-wKb"/>
                         <outlet property="tableView" destination="llr-fy-W9k" id="UOX-oy-oco"/>
                     </connections>
                 </viewController>
@@ -59,6 +78,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

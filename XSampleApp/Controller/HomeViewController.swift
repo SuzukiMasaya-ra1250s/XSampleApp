@@ -10,12 +10,12 @@ import UIKit
 
 class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var addButton: UIButton!
     // 投稿リストを表示するためのPostDataModel配列プロパティ
     var postDataList: [PostDataModel] = []
     
     override func viewDidLoad() {
-        
+        super.viewDidLoad()
         let xIcon = UIImageView(image: UIImage(named: "XIcon"))
         xIcon.contentMode = .scaleAspectFit
         self.navigationItem.titleView = xIcon
@@ -27,10 +27,28 @@ class HomeViewController: UIViewController {
         }
         
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.register(UINib(nibName: "PostViewCell", bundle: nil), forCellReuseIdentifier: "PostViewCell")
         tableView.rowHeight = UITableView.automaticDimension
-        setPostData() // 画面表示の際に投稿データを格納するメソッドを呼び出す
+        setPostData() // 画面表示の際に投稿データを格納するメソッド呼び出す
+        configureButton() // 投稿追加ボタンの表示設定メソッド呼び出し
     }
+    // 投稿追加ボタンの表示設定
+    func configureButton() {
+        addButton.layer.cornerRadius = addButton.bounds.width / 2
+    }
+    
+    @IBAction func tappedAddButton(_ sender: UIButton) {
+        transitionToPostView()
+    }
+    
+    func transitionToPostView() {
+        let storyboard = UIStoryboard(name: "PostViewController", bundle: nil)
+        guard let postViewController = storyboard.instantiateInitialViewController() as? PostViewController else { return }
+        //present(postViewController, animated: true, completion: nil)
+        navigationController?.pushViewController(postViewController, animated: true)
+    }
+    
     
     // 投稿データを配列に格納するメソッド
     func setPostData() {
@@ -50,5 +68,20 @@ extension HomeViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostViewCell", for: indexPath ) as! PostViewCell
         cell.setCell(postDataModel: postDataList[indexPath.row])
         return cell
+    }
+}
+
+// セル選択時に投稿画面へ遷移させる（UITableViewDelegeteを使った処理）
+extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "PostViewController", bundle: nil)
+        let postViewController = storyboard.instantiateViewController(identifier: "PostViewController") as! PostViewController
+        // 画面遷移させる際にデータを合わせて渡す
+        let postData = postDataList[indexPath.row]
+        postViewController.configure(post: postData)
+        // セル選択状態を解除する
+        tableView.deselectRow(at: indexPath, animated: true)
+        // 投稿画面へ遷移させる
+        navigationController?.pushViewController(postViewController, animated: true)
     }
 }
