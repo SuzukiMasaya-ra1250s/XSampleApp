@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct PostDataModel {
-    var userName: String
-    var text: String
-    var recordDate: Date
+class PostDataModel: Object {
+    @Persisted var id: String = UUID().uuidString
+    @Persisted var userName: String = ""
+    @Persisted var text: String = ""
+    @Persisted var recordDate: Date = Date()
     
 }
 

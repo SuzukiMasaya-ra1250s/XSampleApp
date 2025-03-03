@@ -42,6 +42,9 @@
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="14"/>
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="tappedPostButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="y6X-C1-FtE"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ユーザ名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLJ-2b-MHe">
                                 <rect key="frame" x="19.999999999999996" y="122.66666666666669" width="63.666666666666657" height="21"/>
@@ -69,6 +72,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="postButton" destination="Lfb-6f-bJX" id="Jv8-ml-kCr"/>
                         <outlet property="textView" destination="Tf7-go-CfV" id="rbD-s4-k04"/>
                         <outlet property="userNameField" destination="mxz-I2-Del" id="RIT-hc-OMA"/>
                     </connections>

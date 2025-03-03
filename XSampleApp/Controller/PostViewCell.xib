@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,21 +18,15 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="userName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Xx-Xb-3o7">
-                        <rect key="frame" x="10" y="6" width="100" height="20.333333333333329"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="100" id="t6h-3L-qcQ"/>
-                        </constraints>
+                        <rect key="frame" x="10" y="6" width="143" height="20"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="recordDate" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7c-RW-3xB">
-                        <rect key="frame" x="214" y="6" width="100" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="100" id="OTH-vM-Ikj"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="recordDate" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7c-RW-3xB">
+                        <rect key="frame" x="237" y="10" width="77" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" systemColor="systemGrayColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vbj-nL-My7">
@@ -47,9 +42,10 @@
                 <constraints>
                     <constraint firstItem="2Xx-Xb-3o7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="6kk-6K-6RA"/>
                     <constraint firstAttribute="trailing" secondItem="Vbj-nL-My7" secondAttribute="trailing" constant="10" id="IHG-0L-OyD"/>
-                    <constraint firstItem="g7c-RW-3xB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="QyH-Gg-Fzy"/>
-                    <constraint firstAttribute="trailing" secondItem="g7c-RW-3xB" secondAttribute="trailing" constant="6" id="Ts6-NE-mre"/>
+                    <constraint firstAttribute="trailing" secondItem="g7c-RW-3xB" secondAttribute="trailing" constant="6" id="Na7-fi-YwV"/>
+                    <constraint firstItem="g7c-RW-3xB" firstAttribute="leading" secondItem="2Xx-Xb-3o7" secondAttribute="trailing" constant="10" id="QxA-Xs-bc9"/>
                     <constraint firstItem="Vbj-nL-My7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Y2E-Ym-ZHl"/>
+                    <constraint firstItem="g7c-RW-3xB" firstAttribute="centerY" secondItem="2Xx-Xb-3o7" secondAttribute="centerY" id="do3-BT-gTz"/>
                     <constraint firstItem="Vbj-nL-My7" firstAttribute="top" secondItem="2Xx-Xb-3o7" secondAttribute="bottom" constant="4" id="nXV-vm-2Pf"/>
                     <constraint firstItem="2Xx-Xb-3o7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="psH-a5-rxU"/>
                     <constraint firstAttribute="bottom" secondItem="Vbj-nL-My7" secondAttribute="bottom" constant="10" id="z22-dx-Oqg"/>
@@ -64,4 +60,9 @@
             <point key="canvasLocation" x="-73.282442748091597" y="-37.323943661971832"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemGrayColor">
+            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

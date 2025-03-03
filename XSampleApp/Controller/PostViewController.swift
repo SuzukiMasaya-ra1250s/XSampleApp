@@ -6,14 +6,14 @@
 //
 
 import UIKit
+import RealmSwift
 
 class PostViewController: UIViewController {
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var postButton: UIButton!
     
-    var text: String = ""
-    var userName: String = ""
-    var recordDate: Date = Date()
+    var postData = PostDataModel()
     
     var dateFormat: DateFormatter {
         let dateFormatter = DateFormatter()
@@ -25,21 +25,26 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
         display()
         setDoneButton()
+        configurePostButton()
     }
     
     func configure(post: PostDataModel)
     {
-        text = post.text
-        userName = post.userName
-        recordDate = post.recordDate
-        print("データ：\(userName),\(text),\(recordDate)")
+        postData.text = post.text
+        postData.userName = post.userName
+        postData.recordDate = post.recordDate
+        print("データ：\(postData.userName),\(postData.text),\(postData.recordDate)")
     }
     
     func display()
     {
-        userNameField.text = userName
-        textView.text = text
-        navigationItem.title =  dateFormat.string(from: recordDate)
+        userNameField.text = postData.userName
+        textView.text = postData.text
+        //navigationItem.title =  dateFormat.string(from: postData.recordDate)
+    }
+  
+    @IBAction func tappedPostButton(_ sender: UIButton) {
+        savePostData()
     }
     
     // キーボード閉じるボタン動作
@@ -53,5 +58,25 @@ class PostViewController: UIViewController {
         toolBar.items = [commitButton]
         userNameField.inputAccessoryView = toolBar
         textView.inputAccessoryView = toolBar
+    }
+    
+    func savePostData() {
+        let realm = try! Realm()
+        try! realm.write {
+            if let userName = userNameField.text {
+                postData.userName = userName
+            }
+            if let text = textView.text {
+                postData.text = text
+            }
+            postData.recordDate = Date()
+            realm.add(postData)
+        }
+        dismiss(animated: true, completion: nil)
+        print("userName: \(postData.userName), date: \(postData.recordDate), text: \(postData.text)")
+    }
+    
+    func configurePostButton() {
+        postButton.layer.cornerRadius = 15
     }
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -30,9 +31,15 @@ class HomeViewController: UIViewController {
         tableView.delegate = self
         tableView.register(UINib(nibName: "PostViewCell", bundle: nil), forCellReuseIdentifier: "PostViewCell")
         tableView.rowHeight = UITableView.automaticDimension
-        setPostData() // 画面表示の際に投稿データを格納するメソッド呼び出す
         configureButton() // 投稿追加ボタンの表示設定メソッド呼び出し
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setPostData() // 画面表示の際に投稿データを格納するメソッド呼び出す
+        tableView.reloadData()
+    }
+    
     // 投稿追加ボタンの表示設定
     func configureButton() {
         addButton.layer.cornerRadius = addButton.bounds.width / 2
@@ -52,10 +59,17 @@ class HomeViewController: UIViewController {
     
     // 投稿データを配列に格納するメソッド
     func setPostData() {
-        for i in 1...20 {
-            let postDataModel = PostDataModel(userName: "testUser", text: "この投稿は\(i)番目の投稿です。この投稿は\(i)番目の投稿です。この投稿は\(i)番目の投稿です。この投稿は\(i)番目の投稿です。この投稿は\(i)番目の投稿です。この投稿は\(i)番目の投稿です。この投稿は\(i)番目の投稿です。この投稿は\(i)番目の投稿です。この投稿は\(i)番目の投稿です。この投稿は\(i)番目の投稿です。この投稿は\(i)番目の投稿です。この投稿は\(i)番目の投稿です。", recordDate: Date())
-            postDataList.append(postDataModel)
-        }
+        let realm = try! Realm()
+        let result = realm.objects(PostDataModel.self)
+        postDataList = Array(result)
+        
+    //    for i in 1...20 {
+    //        let postDataModel = PostDataModel()
+    //        postDataModel.userName = "testUser\(i)"
+    //        postDataModel.text = "この投稿は\(i)番目の投稿です。"
+    //        postDataModel.recordDate = Date()
+    //        postDataList.append(postDataModel)
+    //    }
     }
 }
 
