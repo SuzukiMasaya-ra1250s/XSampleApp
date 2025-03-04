@@ -72,7 +72,7 @@ class PostViewController: UIViewController {
             postData.recordDate = Date()
             realm.add(postData)
         }
-        dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
         print("userName: \(postData.userName), date: \(postData.recordDate), text: \(postData.text)")
     }
     

@@ -17,9 +17,12 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Xアイコン設定
         let xIcon = UIImageView(image: UIImage(named: "XIcon"))
         xIcon.contentMode = .scaleAspectFit
         self.navigationItem.titleView = xIcon
+        // 投稿画面のbackBarButtonを”キャンセル”に変更
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "キャンセル", style: .plain, target: nil, action: nil)
         
         tableView.separatorColor = .lightGray
         tableView.separatorStyle = .singleLine
@@ -31,6 +34,7 @@ class HomeViewController: UIViewController {
         tableView.delegate = self
         tableView.register(UINib(nibName: "PostViewCell", bundle: nil), forCellReuseIdentifier: "PostViewCell")
         tableView.rowHeight = UITableView.automaticDimension
+
         configureButton() // 投稿追加ボタンの表示設定メソッド呼び出し
     }
     
@@ -52,7 +56,6 @@ class HomeViewController: UIViewController {
     func transitionToPostView() {
         let storyboard = UIStoryboard(name: "PostViewController", bundle: nil)
         guard let postViewController = storyboard.instantiateInitialViewController() as? PostViewController else { return }
-        //present(postViewController, animated: true, completion: nil)
         navigationController?.pushViewController(postViewController, animated: true)
     }
     
@@ -60,16 +63,9 @@ class HomeViewController: UIViewController {
     // 投稿データを配列に格納するメソッド
     func setPostData() {
         let realm = try! Realm()
-        let result = realm.objects(PostDataModel.self)
-        postDataList = Array(result)
-        
-    //    for i in 1...20 {
-    //        let postDataModel = PostDataModel()
-    //        postDataModel.userName = "testUser\(i)"
-    //        postDataModel.text = "この投稿は\(i)番目の投稿です。"
-    //        postDataModel.recordDate = Date()
-    //        postDataList.append(postDataModel)
-    //    }
+        var result = Array(realm.objects(PostDataModel.self))
+        result.sort(by: { $0.recordDate > $1.recordDate })
+        postDataList = result
     }
 }
 
@@ -82,6 +78,20 @@ extension HomeViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostViewCell", for: indexPath ) as! PostViewCell
         cell.setCell(postDataModel: postDataList[indexPath.row])
         return cell
+    }
+    // 投稿データの削除（左スワイプでの削除）
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let targetPostData = postDataList[indexPath.row]
+        let realm = try! Realm()
+        try! realm.write {
+            realm.delete(targetPostData)
+        }
+        postDataList.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+    // 投稿データ削除時の表示を”削除”に指定
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "削除"
     }
 }
 
