@@ -26,6 +26,9 @@ class PostViewController: UIViewController {
         display()
         setDoneButton()
         configurePostButton()
+        textView.delegate = self
+        userNameField.delegate = self
+        
     }
     
     func configure(post: PostDataModel)
@@ -33,14 +36,17 @@ class PostViewController: UIViewController {
         postData.text = post.text
         postData.userName = post.userName
         postData.recordDate = post.recordDate
-        print("データ：\(postData.userName),\(postData.text),\(postData.recordDate)")
     }
-    
+    // 画面表示時に実行
     func display()
     {
         userNameField.text = postData.userName
         textView.text = postData.text
-        //navigationItem.title =  dateFormat.string(from: postData.recordDate)
+        postButton.isEnabled = false // 初期画面表示時には投稿ボタンを無効化しておく
+        // postButton.setTitle("テスト", for: .normal)
+        if userNameField.text?.isEmpty == false {
+            postButton.setTitle("編集", for: .normal)
+        }
     }
   
     @IBAction func tappedPostButton(_ sender: UIButton) {
@@ -59,7 +65,7 @@ class PostViewController: UIViewController {
         userNameField.inputAccessoryView = toolBar
         textView.inputAccessoryView = toolBar
     }
-    
+    // 投稿データ保存メソッド（投稿したら投稿画面を閉じる）
     func savePostData() {
         let realm = try! Realm()
         try! realm.write {
@@ -73,10 +79,39 @@ class PostViewController: UIViewController {
             realm.add(postData)
         }
         navigationController?.popViewController(animated: true)
-        print("userName: \(postData.userName), date: \(postData.recordDate), text: \(postData.text)")
     }
     
     func configurePostButton() {
         postButton.layer.cornerRadius = 15
+    }
+    // 投稿可否判断メソッド（投稿可なら投稿ボタンを有効化する）
+    func postRegulationCheck() {
+        var textCount: Int = 0
+        textCount = textView.text.count
+        var isTextEnable: Bool = false
+        
+        if textCount >= 1 && textCount <= 140 {
+            isTextEnable = true
+        }
+        
+        if userNameField.text?.isEmpty == true || textView.text?.isEmpty == true || isTextEnable == false {
+            postButton.isEnabled = false
+        } else {
+            postButton.isEnabled = true
+        }
+        print(textCount)
+    }
+}
+// UITextViewの内容が変更されたら投稿可否判断（投稿ボタン有効化）するメソッドを実行する
+extension PostViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        postRegulationCheck()
+    }
+}
+// UITextFieldの内容が変更されたら投稿可否判断（投稿ボタン有効化）するメソッドを実行する
+extension PostViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ userNameField: UITextField) {
+        postRegulationCheck()
+        // print("userNameFieldDidChange")
     }
 }

@@ -31,6 +31,7 @@ class HomeViewController: UIViewController {
         }
         
         tableView.dataSource = self
+        tableView.tableFooterView = UIView()
         tableView.delegate = self
         tableView.register(UINib(nibName: "PostViewCell", bundle: nil), forCellReuseIdentifier: "PostViewCell")
         tableView.rowHeight = UITableView.automaticDimension
