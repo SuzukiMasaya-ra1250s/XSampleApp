@@ -14,6 +14,7 @@ class PostViewController: UIViewController {
     @IBOutlet weak var postButton: UIButton!
     
     var postData = PostDataModel()
+    var isFirstPost: Bool = true // 初期投稿:true、編集投稿:false
     
     var dateFormat: DateFormatter {
         let dateFormatter = DateFormatter()
@@ -28,14 +29,8 @@ class PostViewController: UIViewController {
         configurePostButton()
         textView.delegate = self
         userNameField.delegate = self
+        print(postData)
         
-    }
-    
-    func configure(post: PostDataModel)
-    {
-        postData.text = post.text
-        postData.userName = post.userName
-        postData.recordDate = post.recordDate
     }
     // 画面表示時に実行
     func display()
@@ -43,8 +38,8 @@ class PostViewController: UIViewController {
         userNameField.text = postData.userName
         textView.text = postData.text
         postButton.isEnabled = false // 初期画面表示時には投稿ボタンを無効化しておく
-        // postButton.setTitle("テスト", for: .normal)
-        if userNameField.text?.isEmpty == false {
+        // 編集投稿の場合に投稿ボタン表示を"編集"に変更
+        if isFirstPost == false {
             postButton.setTitle("編集", for: .normal)
         }
     }
@@ -75,7 +70,9 @@ class PostViewController: UIViewController {
             if let text = textView.text {
                 postData.text = text
             }
-            postData.recordDate = Date()
+            if isFirstPost {
+                postData.recordDate = Date()
+            }
             realm.add(postData)
         }
         navigationController?.popViewController(animated: true)

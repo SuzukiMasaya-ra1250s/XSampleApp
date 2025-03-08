@@ -102,8 +102,8 @@ extension HomeViewController: UITableViewDelegate {
         let storyboard = UIStoryboard(name: "PostViewController", bundle: nil)
         let postViewController = storyboard.instantiateViewController(identifier: "PostViewController") as! PostViewController
         // 画面遷移させる際にデータを合わせて渡す
-        let postData = postDataList[indexPath.row]
-        postViewController.configure(post: postData)
+        postViewController.postData = postDataList[indexPath.row] // レコードを渡す（プロパティの渡しから修正）
+        postViewController.isFirstPost = false // 編集投稿なのでfalseを代入
         // セル選択状態を解除する
         tableView.deselectRow(at: indexPath, animated: true)
         // 投稿画面へ遷移させる
