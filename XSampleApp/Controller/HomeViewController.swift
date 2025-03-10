@@ -12,6 +12,7 @@ import RealmSwift
 class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addButton: UIButton!
+    
     // 投稿リストを表示するためのPostDataModel配列プロパティ
     var postDataList: [PostDataModel] = []
     
@@ -21,6 +22,13 @@ class HomeViewController: UIViewController {
         let xIcon = UIImageView(image: UIImage(named: "XIcon"))
         xIcon.contentMode = .scaleAspectFit
         self.navigationItem.titleView = xIcon
+        
+        // ユーザアイコン設定
+        //let userIcon = UIImageView(image: UIImage(named: "UserIcon"))
+        //userIcon.contentMode = .scaleAspectFit
+        //self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: userIcon)
+        //self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: userIcon)
+        
         // 投稿画面のbackBarButtonを”キャンセル”に変更
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "キャンセル", style: .plain, target: nil, action: nil)
         
