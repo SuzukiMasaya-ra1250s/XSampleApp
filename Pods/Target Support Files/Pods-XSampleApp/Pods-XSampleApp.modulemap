@@ -1,6 +1,0 @@
-framework module Pods_XSampleApp {
-  umbrella header "Pods-XSampleApp-umbrella.h"
-
-  export *
-  module * { export * }
-}
