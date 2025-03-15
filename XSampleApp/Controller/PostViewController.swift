@@ -98,6 +98,16 @@ class PostViewController: UIViewController {
         }
         print(textCount)
     }
+    // ユニットテスト用にメソッド切り出し
+    func postRegulationCheck2(textCount2: Int) -> Bool {
+        var textCount = textCount2
+        var isTextEnable: Bool = false
+        
+        if textCount >= 1 && textCount <= 140 {
+            isTextEnable = true
+        }
+        return isTextEnable
+    }
 }
 // UITextViewの内容が変更されたら投稿可否判断（投稿ボタン有効化）するメソッドを実行する
 extension PostViewController: UITextViewDelegate {
