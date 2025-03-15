@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import XSampleApp
 
 final class XSampleAppUITestsLaunchTests: XCTestCase {
 
