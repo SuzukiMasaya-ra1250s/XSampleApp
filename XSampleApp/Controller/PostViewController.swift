@@ -87,9 +87,8 @@ class PostViewController: UIViewController {
         textCount = textView.text.count
         var isTextEnable: Bool = false
         
-        if textCount >= 1 && textCount <= 140 {
-            isTextEnable = true
-        }
+        // ユニットテスト用にメソッド切り出し
+        isTextEnable = textCount1To140(textCount2: textCount)
         
         if userNameField.text?.isEmpty == true || textView.text?.isEmpty == true || isTextEnable == false {
             postButton.isEnabled = false
@@ -97,6 +96,10 @@ class PostViewController: UIViewController {
             postButton.isEnabled = true
         }
         print(textCount)
+    }
+    // ユニットテスト用にメソッド切り出し（文字数確認）
+    func textCount1To140(textCount2: Int) -> Bool {
+        return textCount2 >= 1 && textCount2 <= 140
     }
 }
 // UITextViewの内容が変更されたら投稿可否判断（投稿ボタン有効化）するメソッドを実行する
@@ -109,6 +112,5 @@ extension PostViewController: UITextViewDelegate {
 extension PostViewController: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ userNameField: UITextField) {
         postRegulationCheck()
-        // print("userNameFieldDidChange")
     }
 }
