@@ -28,14 +28,14 @@ final class XSampleAppTests: XCTestCase {
     // 文字数カウントが140のときに文字数判断真偽値(isTextEnable)が"true"で返ってくる
     func testpostRegulationCheck2_1() throws {
         let pvc = PostViewController()
-        let textCount2 = pvc.postRegulationCheck2(textCount2: 140)
-        XCTAssertTrue(textCount2)
+        let textCount = pvc.textCount1To140(textCount2: 140)
+        XCTAssertTrue(textCount)
     }
     // 文字数カウントが140のときに文字数判断真偽値(isTextEnable)が"false"で返ってくる
     func testpostRegulationCheck2_2() throws {
         let pvc = PostViewController()
-        let textCount2 = pvc.postRegulationCheck2(textCount2: 141)
-        XCTAssertFalse(textCount2)
+        let textCount = pvc.textCount1To140(textCount2: 141)
+        XCTAssertFalse(textCount)
     }
     
     func testPerformanceExample() throws {
